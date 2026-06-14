@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://cksharma11.github.io/thecodecracker/sitemap.xml
