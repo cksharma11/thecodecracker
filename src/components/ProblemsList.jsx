@@ -66,6 +66,15 @@ export default function ProblemsList({ problems, solvedIds, attemptedIds, bookma
   return (
     <div className="animate-fade-in" style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
       
+      <div style={{ marginBottom: '4px' }}>
+        <h1 className="font-display text-gradient" style={{ fontSize: '1.75rem', fontWeight: 700 }}>
+          Data Structures & Algorithms Practice
+        </h1>
+        <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', marginTop: '4px' }}>
+          Select from 101 handpicked programming challenges to build your problem-solving foundations.
+        </p>
+      </div>
+      
       {/* Filters Panel */}
       <div className="glass-panel" style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
         

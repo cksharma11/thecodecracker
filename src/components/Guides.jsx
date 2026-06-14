@@ -217,6 +217,15 @@ export default function Guides({ problems, solvedIds, setSelectedProblem, setAct
       {/* Left List of stages */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
         
+        <div style={{ marginBottom: '4px' }}>
+          <h1 className="font-display text-gradient" style={{ fontSize: '1.75rem', fontWeight: 700 }}>
+            DSA Conceptual Learning Roadmap
+          </h1>
+          <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', marginTop: '4px' }}>
+            Follow a structured study path through 4 stages from sorting baselines to dynamic graphs.
+          </p>
+        </div>
+        
         {roadmap.map((stage) => (
           <div key={stage.stage} className="glass-panel" style={{ padding: '24px' }}>
             {/* Stage Header */}

@@ -458,9 +458,9 @@ export default function Visualizer() {
       {/* Sidebar Controls */}
       <div className="glass-panel" style={{ padding: '20px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
         <div>
-          <h3 className="font-display text-gradient" style={{ fontSize: '1.25rem', fontWeight: 700, marginBottom: '6px' }}>
+          <h1 className="font-display text-gradient" style={{ fontSize: '1.25rem', fontWeight: 700, marginBottom: '6px' }}>
             Data Structure Visualizer
-          </h3>
+          </h1>
           <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
             Choose a components system, input numbers, and watch step-by-step traversal steps in real-time.
           </p>

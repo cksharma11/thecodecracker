@@ -165,9 +165,9 @@ export default function LLD() {
                 {selectedTopic.category}
               </span>
             </div>
-            <h2 className="font-display text-gradient" style={{ fontSize: '1.75rem', fontWeight: 700 }}>
+            <h1 className="font-display text-gradient" style={{ fontSize: '1.75rem', fontWeight: 700 }}>
               {selectedTopic.title}
-            </h2>
+            </h1>
           </div>
         </div>
 

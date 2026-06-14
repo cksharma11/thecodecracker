@@ -178,9 +178,9 @@ export default function SystemDesign() {
                 {selectedQuestion.category}
               </span>
             </div>
-            <h2 className="font-display text-gradient" style={{ fontSize: '1.75rem', fontWeight: 700 }}>
+            <h1 className="font-display text-gradient" style={{ fontSize: '1.75rem', fontWeight: 700 }}>
               {selectedQuestion.title}
-            </h2>
+            </h1>
           </div>
         </div>
 
