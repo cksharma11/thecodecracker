@@ -272,7 +272,7 @@ export default function Visualizer() {
   };
 
   const renderTreeLines = (node) => {
-    if (!node) return null;
+    if (!node) return [];
     const lines = [];
     if (node.left) {
       lines.push(
@@ -306,7 +306,7 @@ export default function Visualizer() {
   };
 
   const renderTreeNodes = (node) => {
-    if (!node) return null;
+    if (!node) return [];
     const nodes = [];
     const isActive = activeNodeId === node.id;
     
