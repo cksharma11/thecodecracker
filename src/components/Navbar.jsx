@@ -1,5 +1,5 @@
 import React from 'react';
-import { LayoutDashboard, Code2, Map, Activity, Milestone } from 'lucide-react';
+import { LayoutDashboard, Code2, Map, Activity, Milestone, Server } from 'lucide-react';
 
 export default function Navbar({ activeTab, setActiveTab, solvedCount, totalCount }) {
   const percent = totalCount > 0 ? Math.round((solvedCount / totalCount) * 100) : 0;
@@ -9,6 +9,7 @@ export default function Navbar({ activeTab, setActiveTab, solvedCount, totalCoun
     { id: 'problems', label: 'Problems', icon: Code2 },
     { id: 'roadmap', label: 'Roadmap', icon: Map },
     { id: 'visualizer', label: 'Visualizer', icon: Activity },
+    { id: 'systemdesign', label: 'System Design', icon: Server },
   ];
 
   return (

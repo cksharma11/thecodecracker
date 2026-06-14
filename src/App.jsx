@@ -4,6 +4,7 @@ import Dashboard from './components/Dashboard';
 import ProblemsList from './components/ProblemsList';
 import CodingWorkspace from './components/CodingWorkspace';
 import Visualizer from './components/Visualizer';
+import SystemDesign from './components/SystemDesign';
 import Guides from './components/Guides';
 import { useLocalStorage } from './hooks/useLocalStorage';
 import { problems } from './data/problems';
@@ -118,6 +119,8 @@ export default function App() {
         );
       case 'visualizer':
         return <Visualizer />;
+      case 'systemdesign':
+        return <SystemDesign />;
       case 'workspace':
         return (
           <CodingWorkspace 
