@@ -35,7 +35,11 @@ export default function Visualizer() {
       right: { val: 15, id: 7, x: 350, y: 160, left: null, right: null }
     }
   };
-  const [treeNodes, setTreeNodes] = useState(initialTree);
+  const [treeNodes, setTreeNodes] = useState(() => {
+    const newTree = JSON.parse(JSON.stringify(initialTree));
+    assignCoordinates(newTree, 250, 30, 110);
+    return newTree;
+  });
   const [visitedNodes, setVisitedNodes] = useState([]);
   const [activeNodeId, setActiveNodeId] = useState(null);
 
@@ -193,16 +197,30 @@ export default function Visualizer() {
     const val = parseInt(inputVal);
     if (isNaN(val)) return;
     
+    // Helper to check if value exists
+    const searchBST = (node, target) => {
+      if (!node) return false;
+      if (node.val === target) return true;
+      return target < node.val ? searchBST(node.left, target) : searchBST(node.right, target);
+    };
+
+    if (searchBST(treeNodes, val)) {
+      alert(`Value ${val} already exists in the Binary Search Tree!`);
+      return;
+    }
+    
     // Deep clone tree structure to trigger React updates
     let newTree = JSON.parse(JSON.stringify(treeNodes || 'null'));
     newTree = insertIntoBST(newTree, val);
-    assignCoordinates(newTree, 200, 40, 90);
+    assignCoordinates(newTree, 250, 30, 110);
     setTreeNodes(newTree);
     setInputVal('');
   };
 
   const resetBST = () => {
-    setTreeNodes(initialTree);
+    const newTree = JSON.parse(JSON.stringify(initialTree));
+    assignCoordinates(newTree, 250, 30, 110);
+    setTreeNodes(newTree);
     setVisitedNodes([]);
   };
 
@@ -309,6 +327,7 @@ export default function Visualizer() {
     if (!node) return [];
     const nodes = [];
     const isActive = activeNodeId === node.id;
+    const isVisited = visitedNodes.includes(node.val);
     
     nodes.push(
       <g key={`node-${node.id}`}>
@@ -316,8 +335,8 @@ export default function Visualizer() {
           cx={node.x}
           cy={node.y}
           r="16"
-          fill={isActive ? 'var(--accent)' : 'var(--bg-dark)'}
-          stroke={isActive ? 'white' : 'var(--accent)'}
+          fill={isActive ? 'var(--accent)' : isVisited ? 'var(--easy-glow)' : 'var(--bg-dark)'}
+          stroke={isActive ? 'white' : isVisited ? 'var(--easy)' : 'var(--accent)'}
           strokeWidth="2"
           style={{ transition: 'all 0.3s ease', cursor: 'pointer' }}
         />
@@ -783,7 +802,7 @@ export default function Visualizer() {
           {activeDS === 'binaryTree' && (
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
               {treeNodes ? (
-                <svg width="400" height="230" style={{ background: 'transparent' }}>
+                <svg width="100%" height="320" viewBox="0 0 500 320" style={{ background: 'transparent', maxWidth: '500px' }}>
                   {renderTreeLines(treeNodes)}
                   {renderTreeNodes(treeNodes)}
                 </svg>
