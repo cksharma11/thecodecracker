@@ -3,6 +3,13 @@ import Heatmap from './Heatmap';
 import { Award, Flame, Zap, Compass, ArrowRight, Layers, Code2, Cpu, Activity, Server, Map, HelpCircle } from 'lucide-react';
 
 export default function Dashboard({ problems, solvedIds, submissions, setActiveTab, setSelectedProblem }) {
+  React.useEffect(() => {
+    try {
+      (window.adsbygoogle = window.adsbygoogle || []).push({});
+    } catch (e) {
+      console.error("AdSense error", e);
+    }
+  }, []);
   // Count solved problems by difficulty
   const counts = {
     total: problems.length,
@@ -493,6 +500,19 @@ export default function Dashboard({ problems, solvedIds, submissions, setActiveT
                   </div>
                 </div>
               ))}
+            </div>
+          </div>
+
+          {/* Advertisement Block */}
+          <div className="glass-panel" style={{ padding: '16px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
+            <span style={{ fontSize: '0.65rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Advertisement</span>
+            <div style={{ width: '100%', minHeight: '100px', display: 'flex', justifyContent: 'center' }}>
+              <ins className="adsbygoogle"
+                   style={{ display: 'block', width: '100%' }}
+                   data-ad-client="ca-pub-9832014765319507"
+                   data-ad-slot="7650162400"
+                   data-ad-format="auto"
+                   data-full-width-responsive="true" />
             </div>
           </div>
 
