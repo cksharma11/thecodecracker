@@ -6,6 +6,7 @@ import CodingWorkspace from './components/CodingWorkspace';
 import Visualizer from './components/Visualizer';
 import SystemDesign from './components/SystemDesign';
 import Guides from './components/Guides';
+import LLD from './components/LLD';
 import { useLocalStorage } from './hooks/useLocalStorage';
 import { problems } from './data/problems';
 
@@ -121,6 +122,8 @@ export default function App() {
         return <Visualizer />;
       case 'systemdesign':
         return <SystemDesign />;
+      case 'lld':
+        return <LLD />;
       case 'workspace':
         return (
           <CodingWorkspace 
