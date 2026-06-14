@@ -212,6 +212,165 @@ export default function Dashboard({ problems, solvedIds, submissions, setActiveT
         </div>
       </div>
 
+      {/* Platform Features and How-To-Use Guide */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '24px' }}>
+        
+        {/* What's inside */}
+        <div className="glass-panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <h3 className="font-display text-gradient" style={{ fontSize: '1.2rem', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <Layers size={18} color="var(--accent)" /> What's inside the platform?
+          </h3>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+            
+            <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
+              <div style={{ background: 'rgba(99,102,241,0.1)', padding: '6px', borderRadius: '6px', color: 'var(--accent)', flexShrink: 0 }}>
+                <Code2 size={16} />
+              </div>
+              <div>
+                <strong style={{ fontSize: '0.85rem', color: 'white', display: 'block' }}>101 Curated DSA Challenges</strong>
+                <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>Handpicked problems from Easy to Hard with template codes, complexity analysis, and clean solutions.</span>
+              </div>
+            </div>
+
+            <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
+              <div style={{ background: 'rgba(16,185,129,0.1)', padding: '6px', borderRadius: '6px', color: 'var(--easy)', flexShrink: 0 }}>
+                <Cpu size={16} />
+              </div>
+              <div>
+                <strong style={{ fontSize: '0.85rem', color: 'white', display: 'block' }}>Secure In-Browser Coding Sandbox</strong>
+                <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>Write JS or Python code in the Monaco Editor and evaluate it instantly inside a sandboxed Web Worker.</span>
+              </div>
+            </div>
+
+            <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
+              <div style={{ background: 'rgba(245,158,11,0.1)', padding: '6px', borderRadius: '6px', color: 'var(--medium)', flexShrink: 0 }}>
+                <Activity size={16} />
+              </div>
+              <div>
+                <strong style={{ fontSize: '0.85rem', color: 'white', display: 'block' }}>Interactive Data Structure Visualizers</strong>
+                <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>Step through sorting, stack/queue insertions, linked list node additions, and binary tree/graph traversals.</span>
+              </div>
+            </div>
+
+            <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
+              <div style={{ background: 'rgba(99,102,241,0.1)', padding: '6px', borderRadius: '6px', color: 'var(--accent)', flexShrink: 0 }}>
+                <Server size={16} />
+              </div>
+              <div>
+                <strong style={{ fontSize: '0.85rem', color: 'white', display: 'block' }}>51 System Design Case Studies</strong>
+                <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>Blueprints for large-scale systems (like TinyURL and Delivery Hero) detailing APIs, schemas, and trade-offs.</span>
+              </div>
+            </div>
+
+            <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
+              <div style={{ background: 'rgba(168,85,247,0.1)', padding: '6px', borderRadius: '6px', color: '#a855f7', flexShrink: 0 }}>
+                <Map size={16} />
+              </div>
+              <div>
+                <strong style={{ fontSize: '0.85rem', color: 'white', display: 'block' }}>Conceptual Learning Roadmaps</strong>
+                <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>Follow structured stages from basic array sorting all the way to advanced graph models and DP.</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        {/* How to use */}
+        <div className="glass-panel" style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          <h3 className="font-display text-gradient" style={{ fontSize: '1.2rem', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <HelpCircle size={18} color="var(--medium)" /> How to use the platform?
+          </h3>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+            
+            <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
+              <div style={{ 
+                background: 'var(--accent)', 
+                color: 'white', 
+                width: '24px', 
+                height: '24px', 
+                borderRadius: '50%', 
+                display: 'flex', 
+                alignItems: 'center', 
+                justifyContent: 'center',
+                fontSize: '0.75rem',
+                fontWeight: 'bold',
+                flexShrink: 0,
+                marginTop: '2px'
+              }}>1</div>
+              <div>
+                <strong style={{ fontSize: '0.85rem', color: 'white', display: 'block' }}>Select a target tab</strong>
+                <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>Use the top navbar to choose **Problems** to write solutions, **System Design** to read architecture patterns, or **Roadmap** to study guides.</span>
+              </div>
+            </div>
+
+            <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
+              <div style={{ 
+                background: 'var(--accent)', 
+                color: 'white', 
+                width: '24px', 
+                height: '24px', 
+                borderRadius: '50%', 
+                display: 'flex', 
+                alignItems: 'center', 
+                justifyContent: 'center',
+                fontSize: '0.75rem',
+                fontWeight: 'bold',
+                flexShrink: 0,
+                marginTop: '2px'
+              }}>2</div>
+              <div>
+                <strong style={{ fontSize: '0.85rem', color: 'white', display: 'block' }}>Solve challenges & test code</strong>
+                <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>Choose a challenge, select your preferred language in the workspace editor, write your draft, and run test cases directly.</span>
+              </div>
+            </div>
+
+            <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
+              <div style={{ 
+                background: 'var(--accent)', 
+                color: 'white', 
+                width: '24px', 
+                height: '24px', 
+                borderRadius: '50%', 
+                display: 'flex', 
+                alignItems: 'center', 
+                justifyContent: 'center',
+                fontSize: '0.75rem',
+                fontWeight: 'bold',
+                flexShrink: 0,
+                marginTop: '2px'
+              }}>3</div>
+              <div>
+                <strong style={{ fontSize: '0.85rem', color: 'white', display: 'block' }}>Visualize algorithms</strong>
+                <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>Go to the **Visualizer** tab, select a data structure, configure inputs, and click play to watch nodes animate and traverse in real-time.</span>
+              </div>
+            </div>
+
+            <div style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
+              <div style={{ 
+                background: 'var(--accent)', 
+                color: 'white', 
+                width: '24px', 
+                height: '24px', 
+                borderRadius: '50%', 
+                display: 'flex', 
+                alignItems: 'center', 
+                justifyContent: 'center',
+                fontSize: '0.75rem',
+                fontWeight: 'bold',
+                flexShrink: 0,
+                marginTop: '2px'
+              }}>4</div>
+              <div>
+                <strong style={{ fontSize: '0.85rem', color: 'white', display: 'block' }}>Save progress automatically</strong>
+                <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>Your completed problems, code history, bookmarks, and study notes are automatically saved to your local browser storage.</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
       {/* Main Grid */}
       <div style={{ display: 'grid', gridTemplateColumns: '1.8fr 1.2fr', gap: '24px' }}>
         
