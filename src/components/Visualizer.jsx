@@ -1,6 +1,103 @@
 import React, { useState, useEffect } from 'react';
 import { Play, ArrowRight, Plus, Trash2, ArrowUp, ArrowDown, ChevronRight, RefreshCw } from 'lucide-react';
 
+// Static Data Structures & Initial Layouts
+const initialTree = {
+  val: 8, id: 1, x: 200, y: 40,
+  left: {
+    val: 4, id: 2, x: 100, y: 100,
+    left: { val: 2, id: 4, x: 50, y: 160, left: null, right: null },
+    right: { val: 6, id: 5, x: 150, y: 160, left: null, right: null }
+  },
+  right: {
+    val: 12, id: 3, x: 300, y: 100,
+    left: { val: 10, id: 6, x: 250, y: 160, left: null, right: null },
+    right: { val: 15, id: 7, x: 350, y: 160, left: null, right: null }
+  }
+};
+
+const initialGraph = {
+  nodes: [
+    { id: 'A', x: 200, y: 40 },
+    { id: 'B', x: 100, y: 110 },
+    { id: 'C', x: 300, y: 110 },
+    { id: 'D', x: 130, y: 190 },
+    { id: 'E', x: 270, y: 190 },
+    { id: 'F', x: 200, y: 245 }
+  ],
+  edges: [
+    { u: 'A', v: 'B' },
+    { u: 'A', v: 'C' },
+    { u: 'B', v: 'C' },
+    { u: 'B', v: 'D' },
+    { u: 'C', v: 'E' },
+    { u: 'D', v: 'F' },
+    { u: 'E', v: 'F' }
+  ]
+};
+
+// Pure Helper Algorithms & Visual Layout Logic
+const assignCoordinates = (node, x, y, spacingX) => {
+  if (!node) return;
+  node.x = x;
+  node.y = y;
+  if (node.left) {
+    assignCoordinates(node.left, x - spacingX, y + 60, spacingX / 1.7);
+  }
+  if (node.right) {
+    assignCoordinates(node.right, x + spacingX, y + 60, spacingX / 1.7);
+  }
+};
+
+const insertIntoBST = (node, val) => {
+  if (!node) {
+    return { val, id: Date.now(), left: null, right: null };
+  }
+  if (val < node.val) {
+    node.left = insertIntoBST(node.left, val);
+  } else if (val > node.val) {
+    node.right = insertIntoBST(node.right, val);
+  }
+  return node;
+};
+
+const getPreOrder = (node, acc = []) => {
+  if (!node) return acc;
+  acc.push(node);
+  getPreOrder(node.left, acc);
+  getPreOrder(node.right, acc);
+  return acc;
+};
+
+const getInOrder = (node, acc = []) => {
+  if (!node) return acc;
+  getInOrder(node.left, acc);
+  acc.push(node);
+  getInOrder(node.right, acc);
+  return acc;
+};
+
+const getPostOrder = (node, acc = []) => {
+  if (!node) return acc;
+  getPostOrder(node.left, acc);
+  getPostOrder(node.right, acc);
+  acc.push(node);
+  return acc;
+};
+
+const getLevelOrder = (node) => {
+  if (!node) return [];
+  const queue = [node];
+  const acc = [];
+  while (queue.length > 0) {
+    const curr = queue.shift();
+    acc.push(curr);
+    if (curr.left) queue.push(curr.left);
+    if (curr.right) queue.push(curr.right);
+  }
+  return acc;
+};
+
 export default function Visualizer() {
   const [activeDS, setActiveDS] = useState('array');
   const [isPlaying, setIsPlaying] = useState(false);
@@ -22,19 +119,6 @@ export default function Visualizer() {
   ]);
 
   // Tree states
-  const initialTree = {
-    val: 8, id: 1, x: 200, y: 40,
-    left: {
-      val: 4, id: 2, x: 100, y: 100,
-      left: { val: 2, id: 4, x: 50, y: 160, left: null, right: null },
-      right: { val: 6, id: 5, x: 150, y: 160, left: null, right: null }
-    },
-    right: {
-      val: 12, id: 3, x: 300, y: 100,
-      left: { val: 10, id: 6, x: 250, y: 160, left: null, right: null },
-      right: { val: 15, id: 7, x: 350, y: 160, left: null, right: null }
-    }
-  };
   const [treeNodes, setTreeNodes] = useState(() => {
     const newTree = JSON.parse(JSON.stringify(initialTree));
     assignCoordinates(newTree, 250, 30, 110);
@@ -44,25 +128,6 @@ export default function Visualizer() {
   const [activeNodeId, setActiveNodeId] = useState(null);
 
   // Graph states
-  const initialGraph = {
-    nodes: [
-      { id: 'A', x: 200, y: 40 },
-      { id: 'B', x: 100, y: 110 },
-      { id: 'C', x: 300, y: 110 },
-      { id: 'D', x: 130, y: 190 },
-      { id: 'E', x: 270, y: 190 },
-      { id: 'F', x: 200, y: 245 }
-    ],
-    edges: [
-      { u: 'A', v: 'B' },
-      { u: 'A', v: 'C' },
-      { u: 'B', v: 'C' },
-      { u: 'B', v: 'D' },
-      { u: 'C', v: 'E' },
-      { u: 'D', v: 'F' },
-      { u: 'E', v: 'F' }
-    ]
-  };
   const [graphQueueOrStack, setGraphQueueOrStack] = useState([]);
 
   // Stop animations if switching structures
@@ -167,32 +232,6 @@ export default function Visualizer() {
   };
 
   // --- TREE OPERATIONS ---
-  // Recalculate node locations on node insertions
-  const assignCoordinates = (node, x, y, spacingX) => {
-    if (!node) return;
-    node.x = x;
-    node.y = y;
-    if (node.left) {
-      assignCoordinates(node.left, x - spacingX, y + 60, spacingX / 1.7);
-    }
-    if (node.right) {
-      assignCoordinates(node.right, x + spacingX, y + 60, spacingX / 1.7);
-    }
-  };
-
-  // BST insert algorithm
-  const insertIntoBST = (node, val) => {
-    if (!node) {
-      return { val, id: Date.now(), left: null, right: null };
-    }
-    if (val < node.val) {
-      node.left = insertIntoBST(node.left, val);
-    } else if (val > node.val) {
-      node.right = insertIntoBST(node.right, val);
-    }
-    return node;
-  };
-
   const handleBSTInsert = () => {
     const val = parseInt(inputVal);
     if (isNaN(val)) return;
@@ -222,47 +261,6 @@ export default function Visualizer() {
     assignCoordinates(newTree, 250, 30, 110);
     setTreeNodes(newTree);
     setVisitedNodes([]);
-  };
-
-  // Pre-order DFS (Root -> Left -> Right)
-  const getPreOrder = (node, acc = []) => {
-    if (!node) return acc;
-    acc.push(node);
-    getPreOrder(node.left, acc);
-    getPreOrder(node.right, acc);
-    return acc;
-  };
-
-  // In-order DFS (Left -> Root -> Right)
-  const getInOrder = (node, acc = []) => {
-    if (!node) return acc;
-    getInOrder(node.left, acc);
-    acc.push(node);
-    getInOrder(node.right, acc);
-    return acc;
-  };
-
-  // Post-order DFS (Left -> Right -> Root)
-  const getPostOrder = (node, acc = []) => {
-    if (!node) return acc;
-    getPostOrder(node.left, acc);
-    getPostOrder(node.right, acc);
-    acc.push(node);
-    return acc;
-  };
-
-  // Level-order BFS (Queue based)
-  const getLevelOrder = (node) => {
-    if (!node) return [];
-    const queue = [node];
-    const acc = [];
-    while (queue.length > 0) {
-      const curr = queue.shift();
-      acc.push(curr);
-      if (curr.left) queue.push(curr.left);
-      if (curr.right) queue.push(curr.right);
-    }
-    return acc;
   };
 
   const runTreeTraversal = async (traversalType) => {
