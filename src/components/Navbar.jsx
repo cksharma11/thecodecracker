@@ -54,7 +54,7 @@ export default function Navbar({ activeTab, setActiveTab, solvedCount, totalCoun
         }}>
           <Milestone size={18} color="white" />
         </div>
-        <span>Leet<span className="text-gradient">DSA</span></span>
+        <span>the code <span className="text-gradient">cracker</span></span>
         <span style={{
           fontSize: '0.65rem',
           background: 'rgba(255,255,255,0.06)',
@@ -63,7 +63,7 @@ export default function Navbar({ activeTab, setActiveTab, solvedCount, totalCoun
           color: 'var(--text-secondary)',
           fontWeight: 500,
           border: '1px solid var(--border-color)',
-        }}>101 Arena</span>
+        }}>101</span>
       </div>
 
       {/* Nav Menu */}
@@ -102,7 +102,7 @@ export default function Navbar({ activeTab, setActiveTab, solvedCount, totalCoun
       {/* Progress Widget */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
         <div style={{ textAlign: 'right' }}>
-          <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>Arena Progress</div>
+          <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>Overall Progress</div>
           <div style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-primary)' }}>
             {solvedCount} <span style={{ color: 'var(--text-muted)' }}>/ {totalCount} Solved</span>
           </div>

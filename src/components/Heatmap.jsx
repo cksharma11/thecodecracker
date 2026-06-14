@@ -75,7 +75,7 @@ export default function Heatmap({ submissions }) {
   return (
     <div className="glass-card" style={{ padding: '24px' }}>
       <h3 className="font-display" style={{ fontSize: '1.1rem', marginBottom: '16px', color: 'var(--text-primary)' }}>
-        Arena Submissions Calendar
+        Submissions Calendar
       </h3>
 
       <div className="heatmap-container" style={{ position: 'relative' }}>

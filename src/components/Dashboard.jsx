@@ -163,7 +163,7 @@ export default function Dashboard({ problems, solvedIds, submissions, setActiveT
       }}>
         <div style={{ flex: '1 1 400px' }}>
           <h1 className="font-display text-gradient" style={{ fontSize: '2rem', fontWeight: 700, marginBottom: '8px' }}>
-            Welcome to LeetDSA Arena!
+            Welcome to the code cracker 101!
           </h1>
           <p style={{ color: 'var(--text-secondary)', fontSize: '0.95rem', maxWidth: '600px' }}>
             Accelerate your learning through 101 handpicked algorithmic challenges. Write, test, and visualize code in your browser with session state stored offline.

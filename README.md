@@ -1,6 +1,6 @@
-# LeetDSA Arena (thecodecracker)
+# the code cracker 101
 
-LeetDSA Arena is a premium, fully static (client-side) Data Structures and Algorithms learning portal designed to take developers from beginners to experts. The application features **101 handpicked challenges**, detailed study roadmaps, interactive visualizers, and browser-based code compilation for JavaScript and Python.
+the code cracker 101 is a premium, fully static (client-side) Data Structures and Algorithms learning portal designed to take developers from beginners to experts. The application features **101 handpicked challenges**, detailed study roadmaps, interactive visualizers, and browser-based code compilation for JavaScript and Python.
 
 ## 🚀 Key Features
 
