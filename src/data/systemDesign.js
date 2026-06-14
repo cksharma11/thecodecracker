@@ -1707,5 +1707,44 @@ export const systemDesignQuestions = [
     ],
     deepDive: "Uses the Saga Pattern: distributed transactions are split into local service transactions. A coordinator tracks the transaction state in a database. If a step fails, the coordinator executes compensating transactions in reverse order to roll back changes, maintaining eventual consistency.",
     tradeoffs: "Sagas use eventual consistency; data modified by active transactions is visible to other queries before the entire Saga finishes."
+  },
+  {
+    id: 51,
+    title: "Design a 5 Million Pizza Order System (Delivery Hero)",
+    category: "Web Applications",
+    difficulty: "Hard",
+    summary: "A high-performance food delivery platform processing 5 million pizza orders per day, handling extreme dinner-time peaks, real-time tracking, and automated driver dispatching.",
+    requirements: {
+      functional: [
+        "Allow users to browse restaurant menus, customize pizzas, and place orders.",
+        "Provide real-time order status tracking (Placed, Preparing, Dispatched, Delivered).",
+        "Provide dashboards for restaurants to manage active preparation queues.",
+        "Match and dispatch drivers automatically to nearby pick-up orders."
+      ],
+      nonFunctional: [
+        "Highly available for order placements during peak dinner hours (99.999% ordering uptime).",
+        "Transactional consistency for payments, order allocations, and balances.",
+        "Driver matching and status notifications must occur under 1 second."
+      ]
+    },
+    estimations: "5M orders/day = ~58 orders/sec average. Peak dinner hour factor is 10x (~600 orders/sec). Peak search QPS is 100x orders = ~60,000 QPS. Storage: 5M orders * 1KB = 5GB/day (1.8TB/year).",
+    apis: [
+      { method: "POST", path: "/api/v1/orders", desc: "Create a new order", request: "{ \"cartId\": \"string\", \"paymentToken\": \"string\" }", response: "{ \"orderId\": \"uuid\", \"status\": \"PLACED\" }" },
+      { method: "GET", path: "/api/v1/orders/{orderId}/status", desc: "Get live order tracking status", request: "None", response: "{ \"orderId\": \"uuid\", \"status\": \"PREPARING\", \"driverCoords\": \"[lat,lng]?\" }" }
+    ],
+    dataModel: {
+      type: "Sharded Relational DB (PostgreSQL) for orders & payments + DynamoDB for historic logs.",
+      schema: "Orders Table:\n- orderId (uuid, PK)\n- restaurantId (uuid, Index)\n- userId (uuid)\n- totalAmount (decimal)\n- status (varchar)\n- createdAt (timestamp)\n\nOrderItems Table:\n- itemId (PK)\n- orderId (FK)\n- productDetails (json)"
+    },
+    highLevelFlow: [
+      { from: "Client", to: "API Gateway", label: "POST /orders" },
+      { from: "API Gateway", to: "Order Service", label: "Create Order (ACID SQL transaction)" },
+      { from: "Order Service", to: "Payment Service", label: "Authorize Payment" },
+      { from: "Order Service", to: "Message Queue (Kafka)", label: "Emit OrderPlaced event" },
+      { from: "Message Queue (Kafka)", to: "Restaurant Service", label: "Add to kitchen preparation queue" },
+      { from: "Message Queue (Kafka)", to: "Dispatch Service", label: "Assign driver via Geohash cell" }
+    ],
+    deepDive: "Uses the Transactional Outbox Pattern: the Order Service updates database state and appends messages to an Outbox table in the same local SQL transaction, while a separate relay service (Debezium/Kafka Connect) polls this table to publish events to Kafka. This avoids dual-write split-brain problems. Databases are sharded by region (city code) to isolate outages. Driver locations are updated every 4s and stored in memory using Redis Geospatial indexes, allowing the dispatch engine to scan drivers in surrounding Geohash cells under 50ms without touching relational databases.",
+    tradeoffs: "Eventual Consistency vs ACID: Relational ACID transactions are locked at order creation to guarantee exact financial and inventory states. However, driver location streams, status tracking, and kitchen alerts use eventual consistency mediated through Kafka to maximize write availability."
   }
 ];
