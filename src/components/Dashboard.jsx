@@ -1,6 +1,6 @@
 import React from 'react';
 import Heatmap from './Heatmap';
-import { Award, Flame, Zap, Compass, ArrowRight } from 'lucide-react';
+import { Award, Flame, Zap, Compass, ArrowRight, Layers, Code2, Cpu, Activity, Server, Map, HelpCircle } from 'lucide-react';
 
 export default function Dashboard({ problems, solvedIds, submissions, setActiveTab, setSelectedProblem }) {
   // Count solved problems by difficulty
